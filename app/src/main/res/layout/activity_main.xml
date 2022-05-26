@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/logout" />
+    <TextView
+        android:id="@+id/tvLists"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/listview"
+        android:textSize="50sp"
+        android:layout_below="@+id/btnLogOut"/>
+
+    <EditText
+        android:id="@+id/etNewListName"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_below="@+id/tvLists"
+        android:padding="20dp"
+        android:autofillHints=""
+        android:gravity="center"
+        android:inputType="text"
+        android:hint="@string/input_your_list_name"
+        android:textSize="20sp"
+        tools:ignore="LabelFor" />
+
+    <LinearLayout
+        android:id="@+id/llButtons"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_below="@+id/etNewListName"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAddList"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
+            android:text="@string/addList" />
+
+        <Button
+            android:id="@+id/btnDeleteList"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
+            android:text="@string/deleteList" />
+
+        <Button
+            android:id="@+id/btnClearList"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
+            android:text="@string/clearList" />
+
+        <Button
+            android:id="@+id/btnShowList"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
+            android:text="@string/show_list" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvLists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llButtons" />
+</RelativeLayout>

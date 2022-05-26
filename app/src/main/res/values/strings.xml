@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">TodoSharable</string>
+    <string name="addList">+</string>
+    <string name="deleteList">-</string>
+    <string name="clearList">ClearList</string>
+    <string name="show_list">Show list</string>
+    <string name="listview">ListView</string>
+    <string name="input_your_list_name">input your list name</string>
+    <string name="check">Check</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="username">username</string>
+    <string name="login">Login</string>
+    <string name="logo">logo</string>
+    <string name="loginbtn">LogIn</string>
+    <string name="password">password</string>
+    <string name="logout">LogOut</string>
+    <string name="sms">sms</string>
+    <string name="phone">phone</string>
+    <string name="button">Button</string>
+    <string name="o">o</string>
+    <string name="camera">Camera</string>
+    <string name="you_must_grant_permission">You must grant permission</string>
+    <string name="future_image">future image</string>
+    <string name="filename">Filename…</string>
+    <string name="take_as_file">Take as File</string>
+</resources>

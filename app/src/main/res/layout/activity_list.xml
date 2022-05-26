@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListActivity">
+
+    <TextView
+        android:id="@+id/tvListName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/etNewListItemText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tvListName"
+        android:autofillHints=""
+        android:gravity="center"
+        android:hint="@string/input_your_list_name"
+        android:inputType="text"
+        android:textSize="30sp"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/etPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/etNewListItemText"
+        android:autofillHints=""
+        android:textAlignment="center"
+        android:hint="@string/phone"
+        android:inputType="phone"
+        android:textSize="30sp"
+        tools:ignore="LabelFor" />
+
+    <LinearLayout
+        android:id="@+id/llButtonsListItems"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/etPhoneNumber"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAddListItem"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/addList" />
+
+        <Button
+            android:id="@+id/btnDeleteListItem"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/deleteList" />
+
+        <Button
+            android:id="@+id/btnCheckListItem"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/check" />
+        <Button
+            android:id="@+id/btnCamera"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/camera" />
+        <Button
+            android:id="@+id/btnSMSIntent"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/sms" />
+    </LinearLayout>
+    <ListView
+        android:id="@+id/lvListItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llButtonsListItems" />
+</RelativeLayout>
