@@ -27,9 +27,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         checkUser()
+        //initialize repositories
         ListTodoRepository.initialize(this)
         ListItemRepository.initialize(this)
         setupDataObserver()
+        //set buttons and list selection listeners
         btnAddList.setOnClickListener { addList() }
         btnDeleteList.setOnClickListener { removeList() }
         btnShowList.setOnClickListener { showList() }
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    //set loggedInUser
     private fun checkUser(){
     val userId:Int = intent.getIntExtra("id",0)
     val userName: String? = intent.getStringExtra("username")
@@ -49,6 +52,9 @@ class MainActivity : AppCompatActivity() {
     loggedInUser = BEUser(userId, userName!!, "NotRealPassword")
     }
 
+
+    //add list
+    //if list name input is shorter than 3 letters list will not be created
     private fun addList() {
 
         val name = etNewListName.text.toString()
@@ -62,12 +68,14 @@ class MainActivity : AppCompatActivity() {
         etNewListName.text.clear()
     }
 
+    //returns to LoginActivity and set user as null
     private fun logOut(){
         loggedInUser = null
         val i = Intent(this, LoginActivity::class.java)
         startActivity(i)
     }
 
+    //remove selected list if its name is not shorter than 3 characters
     private fun removeList() {
         if (tvLists.text.length < 3) {
             etNewListName.hint = "Cannot remove nothing"
@@ -81,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //opens Detailed view ListActivity with extras: id and list
     private fun showList() {
         val i = Intent(this, ListActivity::class.java)
         i.putExtra("list", selected?.name)
@@ -94,6 +103,8 @@ class MainActivity : AppCompatActivity() {
         repo.clear()
     }
 
+
+    //setting up data observer for lists and displaying them on screen using custom list adapter
     private fun setupDataObserver() {
 
         val repo1 = ListTodoRepository.get()
@@ -111,6 +122,8 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+//ListTodoAdapter set lvLists to given list of BEListTodo
+//use list_cell.xml to create list items
 internal class ListTodoAdapter
         (context: Context, private val lists: ArrayList<BEListTodo>)
         : ArrayAdapter<BEListTodo>(context, 0,lists) {

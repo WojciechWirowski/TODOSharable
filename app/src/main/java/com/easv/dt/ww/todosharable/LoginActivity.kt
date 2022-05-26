@@ -7,16 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.core.app.ActivityCompat
-import com.easv.dt.ww.todosharable.data.login.BEUser
 import com.easv.dt.ww.todosharable.data.login.LoginRepo
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    private var loggedInUser = BEUser(0,"", "")
-
-    private var username = ""
-    private var password = ""
     private val PERMISSION_REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,17 +22,23 @@ class LoginActivity : AppCompatActivity() {
         checkPermissions()
     }
 
+
+    // Login
+    // repo.login returns not null only if we provide proper username and password)
+    // after all it opens MainActivity with extras: id, username
     private fun login(){
 
         val repo = LoginRepo()
 
-        username = etUsername.text.toString()
-        password = etPassword.text.toString()
+        val username = etUsername.text.toString()
+        val password = etPassword.text.toString()
 
-        if(repo.login(username, password) == null){
+        val loggedInUser = repo.login(username, password)
+        if(loggedInUser == null){
             val exception = "Couldn't find user with this name or it has different password"
             tvLoginMessage.text = exception
         }else {
+
             val i = Intent(this, MainActivity::class.java)
             i.putExtra("id", loggedInUser.id)
             i.putExtra("username", loggedInUser.username)

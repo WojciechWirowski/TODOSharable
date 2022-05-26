@@ -27,9 +27,11 @@ class ListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
-        listId = intent.getIntExtra("id", 0)
+        intentExtras()
+        //initialize repository
         ListItemRepository.initialize(this)
         setupDataObserver()
+        //set buttons and list selection listeners
         btnAddListItem.setOnClickListener { addListItem() }
         btnDeleteListItem.setOnClickListener { deleteListItem() }
         btnCheckListItem.setOnClickListener { checkListItem() }
@@ -39,9 +41,10 @@ class ListActivity : AppCompatActivity() {
             AdapterView.OnItemClickListener { parent, _, position, _ ->
                 selected = parent.getItemAtPosition(position) as BEListItem?
             }
-        showName()
+
     }
 
+    //setting up data observer for listItems ( with specific listId ) and displaying it on screen using custom list adapter
     private fun setupDataObserver() {
         val repo = ListItemRepository.get()
         val getAllObserver = Observer<List<BEListItem>>{ lists ->
@@ -54,13 +57,15 @@ class ListActivity : AppCompatActivity() {
         repo.getByListId(listId).observe(this, getAllObserver)
     }
 
-    private fun showName(){
+    //get intent data from MainActivity containing list name, listId and set its value to tvListName field and listId
+    private fun intentExtras(){
         listName = intent.getStringExtra("list").toString()
+        listId = intent.getIntExtra("id", 0)
         tvListName.text = listName
         println(listName)
     }
 
-
+//add listItem to list with provided listId
     private fun addListItem(){
         val repo = ListItemRepository.get()
         val text = etNewListItemText.text.toString()
@@ -68,16 +73,19 @@ class ListActivity : AppCompatActivity() {
         if (text.length <= 3) {
             etNewListItemText.hint = "Input longer list name"
         } else {
-            repo.insert(BEListItem(id = 0, etNewListItemText.text.toString(), listId, false))        }
+            repo.insert(BEListItem(id = 0, etNewListItemText.text.toString(), listId, false))
+        }
 
         etNewListItemText.text.clear()
     }
 
+    //delete list item with id equal selected.id
     private fun deleteListItem(){
         val repo = ListItemRepository.get()
         selected?.let { repo.delete(it) }
     }
 
+    //sets done value of selected item to opposite
     private fun checkListItem(){
         val repo = ListItemRepository.get()
         val item = selected?.let { BEListItem(it.id, selected!!.text, selected!!.listId, !selected!!.done) }
@@ -87,23 +95,28 @@ class ListActivity : AppCompatActivity() {
             println("Cannot check null item exception")
         }
     }
+
+    //opens Camera activity
     private fun openCamera(){
         val i = Intent(this, Camera::class.java)
         startActivity(i)
     }
 
+    //using SMS intent sending message( Item selected item text done = selected item done true/false ) to etPhoneNumber
     private fun sendSMS() {
+        if (selected != null && etPhoneNumber.text.length >= 8) {
+            val phoneNumber = etPhoneNumber.text
+            val message = "Item ${selected?.text} done = ${selected?.done}"
 
-        val phoneNumber = etPhoneNumber.text
-        val message = "Item ${selected?.text} done = ${selected?.done}"
-
-        println("sending SMS message to: $phoneNumber text: $message")
-        val context:Context = this
-        val smsManager = context.getSystemService(SmsManager::class.java)
-        smsManager.sendTextMessage(phoneNumber.toString(), null, message, null, null)
+            println("sending SMS message to: $phoneNumber text: $message")
+            val smsManager = SmsManager.getDefault()
+            smsManager.sendTextMessage(phoneNumber.toString(), null, message, null, null)
+        }
     }
 }
 
+//ListItemAdapter set lvListItems to given list of BEListItem
+//use list_cell.xml to create list items
 internal class ListItemAdapter
     (context: Context, private val lists: ArrayList<BEListItem>)
     : ArrayAdapter<BEListItem>(context, 0,lists) {
